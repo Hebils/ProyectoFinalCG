@@ -71,7 +71,7 @@ public class ControllerMenu : MonoBehaviour
 
     public void StartGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Nivel_1");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Cuevas");
     }
 
     public void ExitGame()
