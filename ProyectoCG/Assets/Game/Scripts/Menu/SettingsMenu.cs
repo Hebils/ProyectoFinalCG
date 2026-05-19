@@ -20,19 +20,28 @@ public class SettingsMenu : MonoBehaviour
         resolutionDropdown.ClearOptions();
 
         List<string> options = new List<string>();
+        List<Resolution> uniqueResolutions = new List<Resolution>();
+        HashSet<string> seenOptions = new HashSet<string>();
         int currentResolutionIndex = 0;
 
         for (int i = 0; i < resolutions.Length; i++)
         {
             string option = resolutions[i].width + " x " + resolutions[i].height;
+            if (seenOptions.Contains(option))
+                continue;
+
+            seenOptions.Add(option);
+            uniqueResolutions.Add(resolutions[i]);
             options.Add(option);
 
             if (resolutions[i].width == Screen.currentResolution.width &&
                 resolutions[i].height == Screen.currentResolution.height)
             {
-                currentResolutionIndex = i;
+                currentResolutionIndex = uniqueResolutions.Count - 1;
             }
         }
+
+        resolutions = uniqueResolutions.ToArray();
 
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
