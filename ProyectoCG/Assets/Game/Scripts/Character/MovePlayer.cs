@@ -9,7 +9,6 @@ public class MovePlayer : MonoBehaviour
     public float speedPlayer = 5f;
     public float speedRotation = 200f;
     public float jumpForce = 5f;
-    public float jumpDelay = 2f;
 
     private float x;
     private float y;
@@ -55,6 +54,15 @@ public class MovePlayer : MonoBehaviour
 
     }
 
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        Vector2 lookInput = context.ReadValue<Vector2>();
+        float mouseX = lookInput.x * speedRotation * Time.deltaTime;
+        float mouseY = lookInput.y * speedRotation * Time.deltaTime;
+        transform.Rotate(0, mouseX, 0);
+        Camera.main.transform.Rotate(-mouseY, 0, 0);
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         movementInput = context.ReadValue<Vector2>();
@@ -71,12 +79,14 @@ public class MovePlayer : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed && Mathf.Abs(rb.linearVelocity.y) < 0.001f && isGrounded)
+        if (context.performed && isGrounded)
         {
             animator.SetBool("IsGrounded", false);
+            animator.SetTrigger("IsJumping");
             isGrounded = false;
 
-            StartCoroutine(JumpDelay());
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
         }
     }
 
@@ -88,12 +98,6 @@ public class MovePlayer : MonoBehaviour
             animator.SetBool("IsGrounded", true);
             isGrounded = true;
         }
-    }
-
-    private IEnumerator JumpDelay()
-    {
-        yield return new WaitForSeconds(jumpDelay);
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
 }
