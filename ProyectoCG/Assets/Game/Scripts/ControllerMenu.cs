@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ControllerMenu : MonoBehaviour
 {
@@ -71,7 +72,7 @@ public class ControllerMenu : MonoBehaviour
 
     public void StartGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Nivel_1");
+        SceneManager.LoadScene("Playa");
     }
 
     public void ExitGame()
