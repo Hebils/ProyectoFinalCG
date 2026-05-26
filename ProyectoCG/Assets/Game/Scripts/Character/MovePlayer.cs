@@ -54,14 +54,14 @@ public class MovePlayer : MonoBehaviour
 
     }
 
-    public void OnLook(InputAction.CallbackContext context)
-    {
-        Vector2 lookInput = context.ReadValue<Vector2>();
-        float mouseX = lookInput.x * speedRotation * Time.deltaTime;
-        float mouseY = lookInput.y * speedRotation * Time.deltaTime;
-        transform.Rotate(0, mouseX, 0);
-        Camera.main.transform.Rotate(-mouseY, 0, 0);
-    }
+    // public void OnLook(InputAction.CallbackContext context)
+    // {
+    //     Vector2 lookInput = context.ReadValue<Vector2>();
+    //     float mouseX = lookInput.x * speedRotation * Time.deltaTime;
+    //     float mouseY = lookInput.y * speedRotation * Time.deltaTime;
+    //     transform.Rotate(0, mouseX, 0);
+    //     Camera.main.transform.Rotate(-mouseY, 0, 0);
+    // }
 
     public void OnMove(InputAction.CallbackContext context)
     {
