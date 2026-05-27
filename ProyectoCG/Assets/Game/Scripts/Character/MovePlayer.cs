@@ -6,10 +6,14 @@ using UnityEngine.InputSystem;
 
 public class MovePlayer : MonoBehaviour
 {
+    #region Movimiento
     public float speedPlayer = 5f;
     public float speedRotation = 200f;
     public float jumpForce = 5f;
     public float jumpDelay = 0.5f;
+    public float jumpRunDelay = 0.25f;
+
+    #endregion
 
     private float x;
     private float y;
@@ -55,14 +59,14 @@ public class MovePlayer : MonoBehaviour
 
     }
 
-    // public void OnLook(InputAction.CallbackContext context)
-    // {
-    //     Vector2 lookInput = context.ReadValue<Vector2>();
-    //     float mouseX = lookInput.x * speedRotation * Time.deltaTime;
-    //     float mouseY = lookInput.y * speedRotation * Time.deltaTime;
-    //     transform.Rotate(0, mouseX, 0);
-    //     Camera.main.transform.Rotate(-mouseY, 0, 0);
-    // }
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        Vector2 lookInput = context.ReadValue<Vector2>();
+        float mouseX = lookInput.x * speedRotation * Time.deltaTime;
+        float mouseY = lookInput.y * speedRotation * Time.deltaTime;
+        transform.Rotate(0, mouseX, 0);
+        Camera.main.transform.Rotate(-mouseY, 0, 0);
+    }
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -82,18 +86,21 @@ public class MovePlayer : MonoBehaviour
     {
         if (context.performed && isGrounded && !isJumpingDelayed)
         {
+            bool isRunningJump = movementInput.magnitude > 0.1f;
+            float selectedJumpDelay = isRunningJump ? jumpRunDelay : jumpDelay;
+
             animator.SetBool("IsGrounded", false);
             animator.SetTrigger("IsJumping");
             isGrounded = false;
-            StartCoroutine(JumpAfterDelay());
+            StartCoroutine(JumpAfterDelay(selectedJumpDelay));
 
         }
     }
 
-    private IEnumerator JumpAfterDelay()
+    private IEnumerator JumpAfterDelay(float delay)
     {
         isJumpingDelayed = true;
-        yield return new WaitForSeconds(jumpDelay);
+        yield return new WaitForSeconds(delay);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         isJumpingDelayed = false;
     }
@@ -104,6 +111,7 @@ public class MovePlayer : MonoBehaviour
         {
             // El jugador ha tocado el suelo, puedes realizar acciones adicionales aquí si es necesario
             animator.SetBool("IsGrounded", true);
+            animator.ResetTrigger("IsJumping");
             isGrounded = true;
         }
     }
