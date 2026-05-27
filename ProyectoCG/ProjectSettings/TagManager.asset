@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Ground
+  - Recolectable
+  - Final
+  - Helicoptero
   layers:
   - Default
   - TransparentFX

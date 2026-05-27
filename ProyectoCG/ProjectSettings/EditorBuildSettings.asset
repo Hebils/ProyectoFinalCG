@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Game/Scenes/Menu.unity
     guid: 463de7a405307ea44b0d09c7f35ad539
   - enabled: 1
+    path: Assets/Game/Scenes/Playa.unity
+    guid: df8897b8c4656db4ba0b70f9b1a5a356
+  - enabled: 1
     path: Assets/Game/Scenes/Selva.unity
     guid: 5be74e46c80301a4c9f99f1f80e5cfa0
   - enabled: 1
