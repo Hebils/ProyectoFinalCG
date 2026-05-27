@@ -12,19 +12,15 @@ public class MovePlayer : MonoBehaviour
     public float jumpForce = 5f;
     public float jumpDelay = 0.5f;
     public float jumpRunDelay = 0.25f;
-
-    #endregion
-
     private float x;
     private float y;
-
     private bool isGrounded;
     private bool isJumpingDelayed;
-
     private Vector2 movementInput;
-
     private Animator animator;
     private Rigidbody rb;
+    #endregion
+
 
 
     void Start()
