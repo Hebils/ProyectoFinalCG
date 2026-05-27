@@ -19,9 +19,15 @@ public class MovePlayer : MonoBehaviour
     private Vector2 movementInput;
     private Animator animator;
     private Rigidbody rb;
+    private Vector3 _playerPosition;
+    public Transform respawnPoint;
     #endregion
 
 
+    void Awake()
+    {
+        _playerPosition = respawnPoint.position;
+    }
 
     void Start()
     {
@@ -109,6 +115,15 @@ public class MovePlayer : MonoBehaviour
             animator.SetBool("IsGrounded", true);
             animator.ResetTrigger("IsJumping");
             isGrounded = true;
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Final"))
+        {
+            transform.position = respawnPoint.position;
+
         }
     }
 
