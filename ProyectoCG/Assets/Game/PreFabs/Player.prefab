@@ -248,6 +248,7 @@ MonoBehaviour:
   jumpForce: 6
   jumpDelay: 0.45
   jumpRunDelay: 0.01
+  respawnPoint: {fileID: 0}
 --- !u!136 &855419590210939808
 CapsuleCollider:
   m_ObjectHideFlags: 0
