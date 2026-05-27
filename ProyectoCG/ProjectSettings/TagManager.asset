@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Recolectable
+  - Final
+  - Helicoptero
   layers:
   - Default
   - TransparentFX
