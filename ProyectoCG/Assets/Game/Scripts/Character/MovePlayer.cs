@@ -162,6 +162,8 @@ public class MovePlayer : MonoBehaviour
         {
             GameManager.Instance.StopFootsteps();
         }
+
+        BloquearCursor(false);
     }
 
     void OnDisable()
@@ -170,8 +172,6 @@ public class MovePlayer : MonoBehaviour
         {
             GameManager.Instance.StopFootsteps();
         }
-
-        BloquearCursor(false);
     }
 
     void OnTriggerEnter(Collider other)

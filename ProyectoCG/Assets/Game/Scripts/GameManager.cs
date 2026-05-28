@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -44,22 +43,7 @@ public class GameManager : MonoBehaviour
     {
         ReiniciarGuardado();
         Cargar();
-        PlayMusicForScene(SceneManager.GetActiveScene().name);
-    }
-
-    void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        PlayMusicForScene(scene.name);
+        PlayMenuMusic();
     }
 
     void PrepararAudioSources()
@@ -117,32 +101,12 @@ public class GameManager : MonoBehaviour
 
     public void PlaySelvaMusic()
     {
-        PlayMusic(selvaMusic != null ? selvaMusic : caveMusic);
+        PlayMusic(selvaMusic);
     }
 
     public void PlayCaveMusic()
     {
         PlayMusic(caveMusic);
-    }
-
-    public void PlayMusicForScene(string sceneName)
-    {
-        if (sceneName == "Menu")
-        {
-            PlayMenuMusic();
-        }
-        else if (sceneName == "Playa")
-        {
-            PlayBeachMusic();
-        }
-        else if (sceneName == "Selva")
-        {
-            PlaySelvaMusic();
-        }
-        else if (sceneName == "Cuevass" || sceneName == "Cueva")
-        {
-            PlayCaveMusic();
-        }
     }
 
     public void PlayPickUp()
