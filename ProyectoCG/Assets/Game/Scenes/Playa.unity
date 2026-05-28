@@ -48764,7 +48764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayaController
   nombreEscena: Playa
-  siguienteEscena: Selva
+  siguienteEscena: Cuevass
   tutorialText: {fileID: 1861509413}
   contadorRecolectablesText: {fileID: 2810542360630122152}
 --- !u!4 &976293811

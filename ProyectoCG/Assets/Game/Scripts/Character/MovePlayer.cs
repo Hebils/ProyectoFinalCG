@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 
 public class MovePlayer : MonoBehaviour
@@ -9,6 +10,8 @@ public class MovePlayer : MonoBehaviour
     #region Movimiento
     public float speedPlayer = 5f;
     public float speedRotation = 200f;
+    public float minVerticalLook = -45f;
+    public float maxVerticalLook = 70f;
     public float jumpForce = 5f;
     public float jumpDelay = 0.5f;
     public float jumpRunDelay = 0.25f;
@@ -20,6 +23,8 @@ public class MovePlayer : MonoBehaviour
     private Animator animator;
     private Rigidbody rb;
     private Vector3 _playerPosition;
+    private Transform cameraTransform;
+    private float cameraPitch;
     public Transform respawnPoint;
     private PlayaController playaController;
     private SelvaController selvaController;
@@ -27,13 +32,18 @@ public class MovePlayer : MonoBehaviour
 
     void Awake()
     {
-        _playerPosition = respawnPoint.position;
+        if (respawnPoint != null)
+        {
+            _playerPosition = respawnPoint.position;
+        }
     }
 
     void Start()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        PrepararCamara();
+        BloquearCursor(SceneManager.GetActiveScene().name != "Menu");
         BuscarControladoresEscena();
     }
 
@@ -67,10 +77,29 @@ public class MovePlayer : MonoBehaviour
     public void OnLook(InputAction.CallbackContext context)
     {
         Vector2 lookInput = context.ReadValue<Vector2>();
+
+        if (lookInput.sqrMagnitude > 0.01f && SceneManager.GetActiveScene().name != "Menu")
+        {
+            BloquearCursor(true);
+        }
+
+        if (cameraTransform == null)
+        {
+            PrepararCamara();
+        }
+
         float mouseX = lookInput.x * speedRotation * Time.deltaTime;
         float mouseY = lookInput.y * speedRotation * Time.deltaTime;
+
         transform.Rotate(0, mouseX, 0);
-        Camera.main.transform.Rotate(-mouseY, 0, 0);
+
+        if (cameraTransform != null)
+        {
+            cameraPitch = Mathf.Clamp(cameraPitch - mouseY, minVerticalLook, maxVerticalLook);
+            Vector3 cameraAngles = cameraTransform.localEulerAngles;
+            cameraAngles.x = cameraPitch;
+            cameraTransform.localEulerAngles = cameraAngles;
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -141,6 +170,8 @@ public class MovePlayer : MonoBehaviour
         {
             GameManager.Instance.StopFootsteps();
         }
+
+        BloquearCursor(false);
     }
 
     void OnTriggerEnter(Collider other)
@@ -161,7 +192,10 @@ public class MovePlayer : MonoBehaviour
 
         if (other.CompareTag("Final"))
         {
-            transform.position = respawnPoint.position;
+            if (respawnPoint != null)
+            {
+                transform.position = respawnPoint.position;
+            }
         }
 
         if (other.CompareTag("Helicoptero") && selvaController != null)
@@ -181,6 +215,29 @@ public class MovePlayer : MonoBehaviour
         {
             selvaController = FindFirstObjectByType<SelvaController>();
         }
+    }
+
+    void PrepararCamara()
+    {
+        if (Camera.main == null) return;
+
+        cameraTransform = Camera.main.transform;
+        cameraPitch = NormalizarAngulo(cameraTransform.localEulerAngles.x);
+        cameraPitch = Mathf.Clamp(cameraPitch, minVerticalLook, maxVerticalLook);
+        Vector3 cameraAngles = cameraTransform.localEulerAngles;
+        cameraAngles.x = cameraPitch;
+        cameraTransform.localEulerAngles = cameraAngles;
+    }
+
+    float NormalizarAngulo(float angle)
+    {
+        return angle > 180f ? angle - 360f : angle;
+    }
+
+    void BloquearCursor(bool bloqueado)
+    {
+        Cursor.lockState = bloqueado ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.visible = !bloqueado;
     }
 
 }

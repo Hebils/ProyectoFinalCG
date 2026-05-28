@@ -25,6 +25,7 @@ public class SelvaController : MonoBehaviour
 
         if (GameManager.Instance != null)
         {
+            GameManager.Instance.PlaySelvaMusic();
             GameManager.Instance.contadorRecolectablesText = contadorRecolectablesText;
             GameManager.Instance.ActualizarTextoConteo();
             OcultarObjetosRecogidos();
