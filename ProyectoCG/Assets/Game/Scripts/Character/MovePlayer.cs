@@ -21,8 +21,9 @@ public class MovePlayer : MonoBehaviour
     private Rigidbody rb;
     private Vector3 _playerPosition;
     public Transform respawnPoint;
+    private PlayaController playaController;
+    private SelvaController selvaController;
     #endregion
-
 
     void Awake()
     {
@@ -33,6 +34,7 @@ public class MovePlayer : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        BuscarControladoresEscena();
     }
 
     private void Update()
@@ -59,6 +61,7 @@ public class MovePlayer : MonoBehaviour
             animator.SetFloat("Blend", Mathf.Abs(x) + Mathf.Abs(y));
         }
 
+        ActualizarSonidoPasos();
     }
 
     public void OnLook(InputAction.CallbackContext context)
@@ -118,12 +121,65 @@ public class MovePlayer : MonoBehaviour
         }
     }
 
+    void ActualizarSonidoPasos()
+    {
+        if (GameManager.Instance == null) return;
+
+        if (movementInput.magnitude > 0.1f && isGrounded)
+        {
+            GameManager.Instance.StartFootsteps();
+        }
+        else
+        {
+            GameManager.Instance.StopFootsteps();
+        }
+    }
+
+    void OnDisable()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.StopFootsteps();
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
+        BuscarControladoresEscena();
+
+        if (other.CompareTag("Recolectable"))
+        {
+            if (playaController != null)
+            {
+                playaController.RecogerObjeto(other.gameObject);
+            }
+            else if (selvaController != null)
+            {
+                selvaController.RecogerObjeto(other.gameObject);
+            }
+        }
+
         if (other.CompareTag("Final"))
         {
             transform.position = respawnPoint.position;
+        }
 
+        if (other.CompareTag("Helicoptero") && selvaController != null)
+        {
+            selvaController.TerminarSelva();
+        }
+    }
+
+    void BuscarControladoresEscena()
+    {
+        if (playaController == null)
+        {
+            playaController = FindFirstObjectByType<PlayaController>();
+        }
+
+        if (selvaController == null)
+        {
+            selvaController = FindFirstObjectByType<SelvaController>();
         }
     }
 

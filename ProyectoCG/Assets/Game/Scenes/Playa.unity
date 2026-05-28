@@ -48658,6 +48658,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1490849379766892529, guid: b8217b9c1183a5144b666d1dd63980c4, type: 3}
   m_PrefabInstance: {fileID: 974544394}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &976293809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 976293811}
+  - component: {fileID: 976293810}
+  m_Layer: 0
+  m_Name: ---PlayaController---
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &976293810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976293809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa4ba13de5beac42b60d203672c1701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayaController
+  nombreEscena: Playa
+  siguienteEscena: Selva
+  objetoNecesario: Crate 1
+  tutorialText: {fileID: 1861509413}
+  contadorRecolectablesText: {fileID: 2810542360630122152}
+--- !u!4 &976293811
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976293809}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 60.82459, y: 0, z: 57.98685}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &977149192
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -106899,6 +106948,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5385204832083367508, guid: afeec50a6ef0e4b48a2426e3c3bef5f6, type: 3}
   m_PrefabInstance: {fileID: 2810542360630122150}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2810542360630122152 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2848145822649951703, guid: afeec50a6ef0e4b48a2426e3c3bef5f6, type: 3}
+  m_PrefabInstance: {fileID: 2810542360630122150}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &8679247791388889749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -106970,3 +107030,4 @@ SceneRoots:
   - {fileID: 2145199898}
   - {fileID: 1396521131}
   - {fileID: 1595393138}
+  - {fileID: 976293811}
