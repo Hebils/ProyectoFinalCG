@@ -32,6 +32,11 @@ public class CaveController : MonoBehaviour
 
     void Start()
     {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.PlayCaveMusic();
+        }
+
         currentTime = maxTime;
 
         UpdateCrystalUI();
