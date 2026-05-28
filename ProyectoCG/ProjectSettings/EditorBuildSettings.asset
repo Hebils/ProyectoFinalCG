@@ -15,8 +15,8 @@ EditorBuildSettings:
     path: Assets/Game/Scenes/Selva.unity
     guid: 5be74e46c80301a4c9f99f1f80e5cfa0
   - enabled: 1
-    path: Assets/Game/Scenes/Cuevas.unity
-    guid: 922f1c8f211a67841ae2e7605f9fc13d
+    path: Assets/Game/Scenes/Cuevass.unity
+    guid: d22b8742a322c7f409c5ecb8efc16fc8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
